@@ -11,7 +11,6 @@ AWK="$TOOLS/busybox awk"
 [ -x "$TOOLS/busybox" ] || AWK="$TOOLS/toybox awk"
 
 ADD=94371840
-TARGET_DEVICE="bangkk"
 
 LINE="============================================================"
 ERROR_LINE="############################################################"
@@ -43,7 +42,7 @@ warn() {
 
 echo
 echo "$LINE"
-echo "BANGKK UNIVERSAL VENDOR RESIZE"
+echo "UNIVERSAL VENDOR RESIZE"
 echo "$LINE"
 echo "Target expansion: $ADD bytes (90 MiB)"
 
@@ -115,37 +114,6 @@ done
 [ -n "$SUPER" ] || error "Super partition non trovata."
 
 echo "super      : $SUPER"
-
-# DEVICE DETECTION
-
-section "DEVICE DETECTION"
-
-PROP_BUILD_PRODUCT=$(getprop ro.build.product)
-PROP_SKU=$(getprop ro.boot.product.hardware.sku)
-PROP_HARDWARE=$(getprop ro.boot.product.hardware)
-PROP_DEVICE=$(getprop ro.product.device)
-
-echo "ro.build.product           = $PROP_BUILD_PRODUCT"
-echo "ro.boot.product.hardware.sku = $PROP_SKU"
-echo "ro.boot.product.hardware   = $PROP_HARDWARE"
-echo "ro.product.device          = $PROP_DEVICE"
-
-DEVICE_OK=0
-
-for X in \
-    "$PROP_BUILD_PRODUCT" \
-    "$PROP_SKU" \
-    "$PROP_HARDWARE" \
-    "$PROP_DEVICE"
-do
-    if [ "$X" = "$TARGET_DEVICE" ]; then
-        DEVICE_OK=1
-    fi
-done
-
-[ "$DEVICE_OK" -eq 1 ] || error "Questo script è destinato a bangkk."
-
-echo "Device verificato: bangkk"
 
 # RECOVERY DETECTION
 
@@ -894,7 +862,7 @@ echo "$LINE"
 echo "SUCCESS"
 echo "$LINE"
 
-echo "Device             : bangkk"
+echo "Device             : $(getprop ro.product.device 2>/dev/null || echo UNKNOWN)"
 echo "Recovery           : $RECOVERY"
 echo "ROM                : $ROM"
 echo "Active slot        : $SLOT"
