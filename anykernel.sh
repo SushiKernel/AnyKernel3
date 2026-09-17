@@ -23,9 +23,6 @@ RAMDISK_COMPRESSION=auto;
 PATCH_VBMETA_FLAG=auto;
 
 . tools/ak3-core.sh;
-. $AKHOME/resize_vendor.sh
-
-sleep 2
 
 dump_boot;
 write_boot;
