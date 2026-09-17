@@ -8,7 +8,7 @@ do.modules=1
 do.systemless=0
 do.cleanup=1
 do.cleanuponabort=0
-device.name1=bangkk
+device.name1=fogos
 supported.versions=15.0-17.0
 '; }
 
